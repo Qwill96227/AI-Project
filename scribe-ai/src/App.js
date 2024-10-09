@@ -30,7 +30,7 @@ function App() {
         <div className="absolute top-16 right-4 bg-white text-purple-600 rounded-md shadow-lg">
           <ul className="py-2">
             <li><button className="block px-4 py-2 hover:bg-purple-100 w-full text-left">Features</button></li>
-            <li><button className="block px-4 py-2 hover:bg-purple-100 w-full text-left">Team</button></li>
+            <li><button className="block px-4 py-2 hover:bg-purple-100 w-full text-left">Login</button></li>
             <li><button className="block px-4 py-2 hover:bg-purple-100 w-full text-left">Plugin Install</button></li>
           </ul>
         </div>
