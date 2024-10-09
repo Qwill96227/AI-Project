@@ -42,13 +42,13 @@ function App() {
         <div className="space-x-4">
           <button 
             onClick={handleGetStarted}
-            className="bg-white text-purple-600 px-6 py-3 rounded-full font-semibold text-lg hover:bg-gray-100 transition duration-300"
+            className="bg-white text-green-600 px-6 py-3 rounded-full font-semibold text-lg hover:bg-gray-100 transition duration-300"
           >
             Get Started
           </button>
           <button 
             onClick={handleSignUp}
-            className="bg-transparent border-2 border-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-purple-600 transition duration-300"
+            className="bg-transparent border-2 border-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-green-600 transition duration-300"
           >
             Sign Up
           </button>
