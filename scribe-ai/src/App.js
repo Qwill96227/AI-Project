@@ -16,7 +16,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-500 to-purple-600 flex flex-col justify-center items-center text-white relative">
+    <div className="min-h-screen bg-gradient-to-b from-green-500 to-yellow-600 flex flex-col justify-center items-center text-white relative">
       <header className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center">
         <h1 className="text-3xl font-bold">Scribe</h1>
         <button onClick={toggleMenu} className="text-white focus:outline-none">
