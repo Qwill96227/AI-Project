@@ -116,7 +116,7 @@ function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white text-green-500 rounded-lg p-6 shadow-lg">
               <h3 className="text-2xl font-bold mb-4">Basic</h3>
-              <p className="text-4xl font-bold mb-4">$9.99<span className="text-sm font-normal">/month</span></p>
+              <p className="text-4xl font-bold mb-4">$1.99<span className="text-sm font-normal">/month</span></p>
               <ul className="text-left mb-6">
                 <li>✓ 100 minutes of transcription</li>
                 <li>✓ Basic editing tools</li>
@@ -126,12 +126,13 @@ function LandingPage() {
             </div>
             <div className="bg-white text-green-500 rounded-lg p-6 shadow-lg">
               <h3 className="text-2xl font-bold mb-4">Pro</h3>
-              <p className="text-4xl font-bold mb-4">$24.99<span className="text-sm font-normal">/month</span></p>
+              <p className="text-4xl font-bold mb-4">$5.99<span className="text-sm font-normal">/month</span></p>
               <ul className="text-left mb-6">
                 <li>✓ 500 minutes of transcription</li>
                 <li>✓ Advanced editing tools</li>
                 <li>✓ Priority email support</li>
                 <li>✓ Custom vocabulary</li>
+                <li>✓ Plugin Access</li>
               </ul>
               <button className="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition duration-300">Choose Plan</button>
             </div>
