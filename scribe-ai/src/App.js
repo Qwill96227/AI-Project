@@ -103,6 +103,10 @@ function LandingPage() {
                 <h3 className="text-xl font-semibold mb-2">Easy Integration</h3>
                 <p>Seamlessly integrate Scribe into your existing workflow with our robust API.</p>
               </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Plugin Install</h3>
+                <p>A plugin that can be used during meeting or classes.</p>
+              </div>
             </div>
           </div>
         </section>
