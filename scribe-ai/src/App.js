@@ -42,6 +42,8 @@ function LandingPage() {
             <ul className="flex space-x-4">
               <li><a href="#features" className="hover:text-gray-200">Features</a></li>
               <li><a href="#billing" className="hover:text-gray-200">Billing</a></li>
+              <li><a href="#Use Cases" className="hover:text-gray-200">Use Cases</a></li>
+              <li><a href="#Plugin Install" className="hover:text-gray-200">Plugin Install</a></li>
             </ul>
           </nav>
         </div>
@@ -56,8 +58,6 @@ function LandingPage() {
           <ul className="py-2">
             <li><a href="#features" className="block px-4 py-2 hover:bg-green-700">Features</a></li>
             <li><a href="#billing" className="block px-4 py-2 hover:bg-green-700">Billing</a></li>
-            <li><a href="#billing" className="block px-4 py-2 hover:bg-green-700">Use Cases</a></li>
-            <li><a href="#billing" className="block px-4 py-2 hover:bg-green-700">Plugin Install</a></li>
           </ul>
         </div>
       )}
