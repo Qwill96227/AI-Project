@@ -56,13 +56,15 @@ function LandingPage() {
           <ul className="py-2">
             <li><a href="#features" className="block px-4 py-2 hover:bg-green-700">Features</a></li>
             <li><a href="#billing" className="block px-4 py-2 hover:bg-green-700">Billing</a></li>
+            <li><a href="#billing" className="block px-4 py-2 hover:bg-green-700">Use Cases</a></li>
+            <li><a href="#billing" className="block px-4 py-2 hover:bg-green-700">Plugin Install</a></li>
           </ul>
         </div>
       )}
       <main>
         <section className="min-h-screen flex flex-col justify-center items-center text-center px-4">
           <h2 className="text-5xl font-bold mb-6">Welcome to Scribe</h2>
-          <p className="text-xl mb-8">Transform your audio and video into text with the power of AI</p>
+          <p className="text-xl mb-8">Transform your audio into text with the power of AI</p>
           <div className="space-x-4">
             <button onClick={handleGetStarted} className="bg-white text-green-500 px-6 py-3 rounded-full font-semibold text-lg hover:bg-gray-100 transition duration-300">
               Get Started
@@ -93,11 +95,7 @@ function LandingPage() {
             <div className="space-y-6 text-left">
               <div>
                 <h3 className="text-xl font-semibold mb-2">Accurate Transcription</h3>
-                <p>Our AI model provides industry-leading accuracy in transcribing audio and video content.</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Multiple Languages</h3>
-                <p>Support for over 30 languages, making Scribe ideal for global content creators.</p>
+                <p>Our AI model provides industry-leading accuracy in transcribing audio content.</p>
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2">Easy Integration</h3>
@@ -105,7 +103,7 @@ function LandingPage() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2">Plugin Install</h3>
-                <p>A plugin that can be used during meeting or classes.</p>
+                <p>A plugin that can be used during meetings or classes.</p>
               </div>
             </div>
           </div>
