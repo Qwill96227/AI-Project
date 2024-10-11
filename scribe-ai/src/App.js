@@ -41,8 +41,8 @@ function LandingPage() {
           <nav className="hidden md:block">
             <ul className="flex space-x-4">
               <li><a href="#features" className="hover:text-gray-200">Features</a></li>
-              <li><a href="#billing" className="hover:text-gray-200">Billing</a></li>
               <li><a href="#Use Cases" className="hover:text-gray-200">Use Cases</a></li>
+              <li><a href="#billing" className="hover:text-gray-200">Billing</a></li>
               <li><a href="#Plugin Install" className="hover:text-gray-200">Plugin Install</a></li>
             </ul>
           </nav>
