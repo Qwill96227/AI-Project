@@ -7,6 +7,7 @@ function LandingPage() {
   const videoRef = useRef(null);
 
   const handleGetStarted = () => {
+    navigate('/getstarted')
     console.log("Navigating to upload page...");
   };
 
@@ -82,7 +83,6 @@ function LandingPage() {
           <h2 className="text-4xl font-bold mb-12">Features</h2>
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="space-y-4">
-              <h3 className="text-2xl font-semibold">Scribe in Action</h3>
               <div 
                 ref={videoRef}
                 className="aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden opacity-0 transform translate-y-10 transition-all duration-1000 ease-out"
