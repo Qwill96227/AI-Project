@@ -29,7 +29,7 @@ const SignUpPage = () => {
             <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up for Scribe</h2>
             <form onSubmit={handleSubmit}>
               <div style={{ marginBottom: '15px' }}>
-                <label htmlFor="username" style={{ display: 'block', marginBottom: '5px' }}>Username</label>
+                <label htmlFor="username" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Username</label>
                 <input
                   type="text"
                   id="username"
@@ -41,7 +41,7 @@ const SignUpPage = () => {
                 />
               </div>
               <div style={{ marginBottom: '15px' }}>
-                <label htmlFor="email" style={{ display: 'block', marginBottom: '5px' }}>Email</label>
+                <label htmlFor="email" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Email</label>
                 <input
                   type="email"
                   id="email"
@@ -53,7 +53,7 @@ const SignUpPage = () => {
                 />
               </div>
               <div style={{ marginBottom: '15px' }}>
-                <label htmlFor="password" style={{ display: 'block', marginBottom: '5px' }}>Password</label>
+                <label htmlFor="password" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Password</label>
                 <input
                   type="password"
                   id="password"
@@ -65,7 +65,7 @@ const SignUpPage = () => {
                 />
               </div>
               <div style={{ marginBottom: '15px' }}>
-                <label htmlFor="confirmPassword" style={{ display: 'block', marginBottom: '5px' }}>Confirm Password</label>
+                <label htmlFor="confirmPassword" style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Confirm Password</label>
                 <input
                   type="password"
                   id="confirmPassword"
@@ -76,7 +76,7 @@ const SignUpPage = () => {
                   style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
                 />
               </div>
-              <button type="submit" style={{ width: '100%', padding: '10px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Sign Up</button>
+              <button type="submit" style={{ width: '100%', padding: '10px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Sign Up</button>
             </form>
           </div>
         </div>
