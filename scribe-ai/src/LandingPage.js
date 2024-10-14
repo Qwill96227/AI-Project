@@ -7,7 +7,7 @@ function LandingPage() {
   const videoRef = useRef(null);
 
   const handleGetStarted = () => {
-    navigate('/getstarted')
+    navigate('/record')
     console.log("Navigating to upload page...");
   };
 
