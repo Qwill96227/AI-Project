@@ -111,6 +111,35 @@ function LandingPage() {
             </div>
           </div>
         </section>
+        <section id="use-cases" className="min-h-screen flex flex-col justify-center items-center text-center px-4 py-16">
+          <h2 className="text-4xl font-bold mb-12">Use Cases</h2>
+          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-6 text-left">
+              <h3 className="text-2xl font-semibold mb-4">In the Classroom</h3>
+              <ul className="list-disc list-inside space-y-2">
+                <li>Transcribe lectures for students to review later</li>
+                <li>Create accessible content for hearing-impaired students</li>
+                <li>Generate notes from group discussions</li>
+                <li>Assist in language learning by providing accurate transcriptions</li>
+              </ul>
+            </div>
+            <div className="space-y-6 text-left">
+              <h3 className="text-2xl font-semibold mb-4">In Meetings</h3>
+              <ul className="list-disc list-inside space-y-2">
+                <li>Capture meeting minutes automatically</li>
+                <li>Create searchable archives of discussions</li>
+                <li>Enable remote participants to follow along with live transcription</li>
+                <li>Facilitate multi-language meetings with real-time translations</li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-12">
+            <p className="text-xl mb-6">Scribe AI transforms how you capture and utilize spoken information, making learning and collaboration more efficient and accessible than ever before.</p>
+            <button onClick={handleGetStarted} className="bg-white text-green-500 px-6 py-3 rounded-full font-semibold text-lg hover:bg-gray-100 transition duration-300">
+              Try Scribe AI Today
+            </button>
+          </div>
+        </section>
         
         <section id="billing" className="min-h-screen flex flex-col justify-center items-center text-center px-4 py-16">
           <h2 className="text-4xl font-bold mb-12">Billing Options</h2>
