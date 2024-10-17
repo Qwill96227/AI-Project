@@ -76,6 +76,9 @@ function LandingPage() {
             <button onClick={handleSignUp} className="bg-transparent border-2 border-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-green-500 transition duration-300">
               Sign Up
             </button>
+            <button onClick={() => navigate('/login')} className="bg-transparent border-2 border-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-green-500 transition duration-300">
+              Log In
+            </button>
           </div>
         </section>
         
