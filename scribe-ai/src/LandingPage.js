@@ -47,8 +47,7 @@ function LandingPage() {
               <li><a href="#features" className="hover:text-gray-200">Features</a></li>
               <li><a href="#Use Cases" className="hover:text-gray-200">Use Cases</a></li>
               <li><a href="#billing" className="hover:text-gray-200">Billing</a></li>
-              <li><a href="#Plugin Install" className="hover:text-gray-200">Plugin Install</a></li>
-            </ul>
+               </ul>
           </nav>
         </div>
         <button onClick={toggleMenu} className="text-white focus:outline-none md:hidden">
