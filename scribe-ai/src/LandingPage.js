@@ -123,8 +123,7 @@ function LandingPage() {
                 <li>Transcribe lectures for students to review later</li>
                 <li>Create accessible content for hearing-impaired students</li>
                 <li>Generate notes from group discussions</li>
-                <li>Assist in language learning by providing accurate transcriptions</li>
-              </ul>
+                </ul>
             </div>
             <div className="space-y-6 text-left">
               <h3 className="text-2xl font-semibold mb-4">In Meetings</h3>
@@ -132,8 +131,7 @@ function LandingPage() {
                 <li>Capture meeting minutes automatically</li>
                 <li>Create searchable archives of discussions</li>
                 <li>Enable remote participants to follow along with live transcription</li>
-                <li>Facilitate multi-language meetings with real-time translations</li>
-              </ul>
+                </ul>
             </div>
           </div>
           <div className="mt-12">
