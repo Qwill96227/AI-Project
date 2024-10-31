@@ -45,9 +45,7 @@ function LandingPage() {
           <nav className="hidden md:block">
             <ul className="flex space-x-4">
               <li><a href="#features" className="hover:text-gray-400">Features</a></li>
-              <li><a href="#use-cases" className="hover:text-gray-400">Use Cases</a></li>
-              <li><a href="#billing" className="hover:text-gray-400">Billing</a></li>
-            </ul>
+              </ul>
           </nav>
         </div>
         <button onClick={toggleMenu} className="text-gray-100 focus:outline-none md:hidden">
