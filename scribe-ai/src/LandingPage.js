@@ -43,7 +43,7 @@ function LandingPage() {
       name: "Sarah Johnson",
       role: "Content Creator",
       company: "Tech Weekly Podcast",
-      image: "/api/placeholder/64/64",
+      image: "https://randomuser.me/api/portraits/women/44.jpg",
       quote: "Scribe has revolutionized our podcast production workflow. What used to take hours now takes minutes, and the accuracy is impressive.",
       rating: 5
     },
@@ -51,7 +51,7 @@ function LandingPage() {
       name: "Dr. Michael Chen",
       role: "Professor",
       company: "Stanford University",
-      image: "/api/placeholder/64/64",
+      image: "https://randomuser.me/api/portraits/men/32.jpg",
       quote: "As an educator, Scribe has been invaluable for making my lectures more accessible. The automatic transcription is remarkably accurate.",
       rating: 5
     },
@@ -59,7 +59,7 @@ function LandingPage() {
       name: "Lisa Martinez",
       role: "Project Manager",
       company: "Innovation Corp",
-      image: "/api/placeholder/64/64",
+      image: "https://randomuser.me/api/portraits/women/65.jpg",
       quote: "We use Scribe for all our team meetings. It's made our documentation process so much more efficient and reliable.",
       rating: 4
     }
