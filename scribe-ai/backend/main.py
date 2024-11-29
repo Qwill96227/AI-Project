@@ -5,7 +5,7 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 
 # Initialize the Firebase Admin SDK
-cred = credentials.Certificate('path/to/serviceAccountKey.json')
+cred = credentials.Certificate('"C:\Users\qwill\Downloads\scribe-ai-fe9d2-firebase-adminsdk-gnevq-85fd73a6da.json"')
 firebase_admin.initialize_app(cred, {
     'projectId': 'your-firebase-project-id',
 })
