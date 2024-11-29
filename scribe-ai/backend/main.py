@@ -1,5 +1,16 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+# Initialize the Firebase Admin SDK
+cred = credentials.Certificate('path/to/serviceAccountKey.json')
+firebase_admin.initialize_app(cred, {
+    'projectId': 'your-firebase-project-id',
+})
+
+db = firestore.client()
 
 app = FastAPI()
 
@@ -15,3 +26,20 @@ app.add_middleware(
 @app.get("/")
 async def root():
     return {"message": "Welcome to ScribeAI Backend"}
+
+@app.post("/register")
+async def register_user(user: dict = Body(...)):
+    # Create a new user document in Firestore
+    doc_ref = db.collection('users').document(user['uid'])
+    doc_ref.set(user)
+    return {"message": "User registered successfully"}
+
+@app.get("/users/{uid}")
+async def get_user(uid: str):
+    # Retrieve user data from Firestore
+    doc_ref = db.collection('users').document(uid)
+    doc = doc_ref.get()
+    if doc.exists:
+        return doc.to_dict()
+    else:
+        return {"error": "User not found"}
