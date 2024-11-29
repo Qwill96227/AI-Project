@@ -5,10 +5,11 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 
 # Initialize the Firebase Admin SDK
-cred = credentials.Certificate('"C:\Users\qwill\Downloads\scribe-ai-fe9d2-firebase-adminsdk-gnevq-85fd73a6da.json"')
+cred = credentials.Certificate(r'C:\Users\qwill\Downloads\scribe-ai-fe9d2-firebase-adminsdk-gnevq-85fd73a6da.json')
 firebase_admin.initialize_app(cred, {
-    'projectId': 'your-firebase-project-id',
+    'projectId': 'scribe-ai-fe9d2',
 })
+
 
 db = firestore.client()
 
