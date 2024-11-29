@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import firebase_admin
 from firebase_admin import credentials, initialize_app
 from firebase_admin import firestore
+from firebase_admin import auth
 
 # Initialize the Firebase Admin SDK
 cred = credentials.Certificate(r'C:\Users\qwill\Downloads\scribe-ai-fe9d2-firebase-adminsdk-gnevq-85fd73a6da.json')
