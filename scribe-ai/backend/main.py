@@ -38,19 +38,21 @@ async def signup(request: Request):
 
     try:
         # Create new user in Firebase Authentication
-        user = await auth.create_user_with_email_and_password(email, password)
+        user_record = await auth.create_user(email=email, password=password)
 
         # Store user data in Firestore
-        user_doc = db.collection("users").document(user["localId"])
-        user_doc.set({
+        user_doc = db.collection("users").document(user_record.uid)
+        await user_doc.set({
             "username": username,
             "email": email,
-            "uid": user["localId"]
+            "uid": user_record.uid
         })
 
         return {"message": "User registered successfully"}
+    except auth.AuthError as e:
+        return {"error": f"Firebase Authentication error: {e.code}"}
     except Exception as e:
-        return {"error": str(e)}
+        return {"error": f"Error registering user: {str(e)}"}
 
 @app.get("/users/{uid}")
 async def get_user(uid: str):
