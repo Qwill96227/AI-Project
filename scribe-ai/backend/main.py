@@ -4,13 +4,13 @@ import firebase_admin
 from firebase_admin import credentials, initialize_app
 from firebase_admin import firestore
 from firebase_admin import auth
+from jose import jwt
 
 # Initialize the Firebase Admin SDK
 cred = credentials.Certificate(r'C:\Users\qwill\Downloads\scribe-ai-fe9d2-firebase-adminsdk-gnevq-85fd73a6da.json')
 firebase_admin.initialize_app(cred, {
     'projectId': 'scribe-ai-fe9d2',
 })
-
 
 db = firestore.client()
 
@@ -31,34 +31,34 @@ async def root():
 
 @app.post("/signup")
 async def signup(request: Request):
-    data = await request.json()
-    username = data.get("username")
-    email = data.get("email")
-    password = data.get("password")
-
     try:
-        # Create new user in Firebase Authentication
-        user_record = await auth.create_user(email=email, password=password)
+        data = await request.json()
+        id_token = data.get("id_token")
+        
+        if not id_token:
+            return {"error": "Missing id_token"}
 
-        # Store user data in Firestore
-        user_doc = db.collection("users").document(user_record.uid)
+        # Decode the Firebase ID token
+        decoded_token = await auth.verify_id_token(id_token)
+        user_uid = decoded_token["user_id"]  # Correctly access the user ID
+
+        # Create user in Firestore
+        user_doc = db.collection("users").document(user_uid)
         await user_doc.set({
-            "username": username,
-            "email": email,
-            "uid": user_record.uid
+            "username": data.get("username"),
+            "email": data.get("email"),
+            "uid": user_uid
         })
 
         return {"message": "User registered successfully"}
-    except auth.AuthError as e:
-        return {"error": f"Firebase Authentication error: {e.code}"}
     except Exception as e:
-        return {"error": f"Error registering user: {str(e)}"}
+        return {"error": str(e)}
 
 @app.get("/users/{uid}")
 async def get_user(uid: str):
     # Retrieve user data from Firestore
     doc_ref = db.collection('users').document(uid)
-    doc = doc_ref.get()
+    doc = await doc_ref.get()
     if doc.exists:
         return doc.to_dict()
     else:
