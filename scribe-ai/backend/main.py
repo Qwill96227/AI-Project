@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Body, Request
+from fastapi import FastAPI, Body, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 import firebase_admin
 from file_handling import upload_multimedia_file
@@ -25,6 +25,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.post("/upload")
+async def upload_file(file: UploadFile, model_type: str):
+    transcript = await upload_multimedia_file(file, model_type)
+    return {"status": "success", "transcript": transcript}
 
 @app.get("/")
 async def root():
