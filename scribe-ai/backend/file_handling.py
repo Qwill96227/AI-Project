@@ -1,7 +1,7 @@
 from fastapi import UploadFile
 from fastapi.exceptions import HTTPException
-from .model_processing import process_audio_with_whisper, process_video_with_whisper
-from .firestore_integration import store_transcript_in_firestore
+from model_processing import process_audio_with_whisper, process_video_with_whisper
+from firestore_integration import store_transcript_in_firestore
 
 async def upload_multimedia_file(file: UploadFile, model_type: str):
     """
