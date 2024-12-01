@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Body, Request
 from fastapi.middleware.cors import CORSMiddleware
 import firebase_admin
+from file_handling import upload_multimedia_file
 from firebase_admin import credentials, initialize_app
 from firebase_admin import firestore
 from firebase_admin import auth
