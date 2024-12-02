@@ -1,6 +1,6 @@
-import numpy as np
 import whisper
-from io import BytesIO
+import tempfile
+import os
 
 def process_audio_with_whisper(audio_content):
     """
@@ -12,10 +12,18 @@ def process_audio_with_whisper(audio_content):
     Returns:
         str: Transcribed text.
     """
-    whisper_model = whisper.load_model("base")
-    audio_array = np.frombuffer(audio_content, np.int16)
-    transcript = whisper_model.transcribe(audio_array)
-    return transcript["text"]
+    # Create a temporary file to save the audio content
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.mp3') as temp_audio:
+        temp_audio.write(audio_content)
+        temp_audio_path = temp_audio.name
+
+    try:
+        whisper_model = whisper.load_model("base")
+        transcript = whisper_model.transcribe(temp_audio_path)
+        return transcript["text"]
+    finally:
+        # Ensure the temporary file is deleted
+        os.unlink(temp_audio_path)
 
 def process_video_with_whisper(video_content):
     """
@@ -27,7 +35,15 @@ def process_video_with_whisper(video_content):
     Returns:
         str: Transcribed text.
     """
-    whisper_model = whisper.load_model("base")
-    video_array = np.frombuffer(video_content, np.int16)
-    transcript = whisper_model.transcribe(video_array)
-    return transcript["text"]
+    # Create a temporary file to save the video content
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_video:
+        temp_video.write(video_content)
+        temp_video_path = temp_video.name
+
+    try:
+        whisper_model = whisper.load_model("base")
+        transcript = whisper_model.transcribe(temp_video_path)
+        return transcript["text"]
+    finally:
+        # Ensure the temporary file is deleted
+        os.unlink(temp_video_path)
