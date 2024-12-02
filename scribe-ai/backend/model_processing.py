@@ -1,3 +1,4 @@
+import numpy as np
 import whisper
 from io import BytesIO
 
@@ -12,7 +13,8 @@ def process_audio_with_whisper(audio_content):
         str: Transcribed text.
     """
     whisper_model = whisper.load_model("base")
-    transcript = whisper_model.transcribe(audio_content)
+    audio_array = np.frombuffer(audio_content, np.int16)
+    transcript = whisper_model.transcribe(audio_array)
     return transcript["text"]
 
 def process_video_with_whisper(video_content):
@@ -26,5 +28,6 @@ def process_video_with_whisper(video_content):
         str: Transcribed text.
     """
     whisper_model = whisper.load_model("base")
-    result = whisper_model.transcribe(BytesIO(video_content))
-    return result["text"]
+    video_array = np.frombuffer(video_content, np.int16)
+    transcript = whisper_model.transcribe(video_array)
+    return transcript["text"]
