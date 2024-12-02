@@ -1,8 +1,8 @@
 import whisper
-import tempfile
 import os
+import aiofiles  # For asynchronous file operations
 
-def process_audio_with_whisper(audio_content):
+async def process_audio_with_whisper(audio_content):
     """
     Process audio files using OpenAI's Whisper model.
 
@@ -12,20 +12,23 @@ def process_audio_with_whisper(audio_content):
     Returns:
         str: Transcribed text.
     """
-    # Create a temporary file to save the audio content
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.mp3') as temp_audio:
-        temp_audio.write(audio_content)
-        temp_audio_path = temp_audio.name
-
+    temp_audio_path = None
     try:
+        # Asynchronously write the audio content to a temporary file
+        async with aiofiles.tempfile.NamedTemporaryFile(delete=False, suffix='.mp3') as temp_audio:
+            await temp_audio.write(audio_content)
+            temp_audio_path = temp_audio.name
+
+        # Load Whisper model and transcribe
         whisper_model = whisper.load_model("base")
         transcript = whisper_model.transcribe(temp_audio_path)
         return transcript["text"]
     finally:
         # Ensure the temporary file is deleted
-        os.unlink(temp_audio_path)
+        if temp_audio_path and os.path.exists(temp_audio_path):
+            os.unlink(temp_audio_path)
 
-def process_video_with_whisper(video_content):
+async def process_video_with_whisper(video_content):
     """
     Process video files using OpenAI's Whisper model for transcription.
 
@@ -35,15 +38,18 @@ def process_video_with_whisper(video_content):
     Returns:
         str: Transcribed text.
     """
-    # Create a temporary file to save the video content
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_video:
-        temp_video.write(video_content)
-        temp_video_path = temp_video.name
-
+    temp_video_path = None
     try:
+        # Asynchronously write the video content to a temporary file
+        async with aiofiles.tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_video:
+            await temp_video.write(video_content)
+            temp_video_path = temp_video.name
+
+        # Load Whisper model and transcribe
         whisper_model = whisper.load_model("base")
         transcript = whisper_model.transcribe(temp_video_path)
         return transcript["text"]
     finally:
         # Ensure the temporary file is deleted
-        os.unlink(temp_video_path)
+        if temp_video_path and os.path.exists(temp_video_path):
+            os.unlink(temp_video_path)

@@ -15,11 +15,11 @@ async def upload_multimedia_file(file: UploadFile, model_type: str):
         Processed text transcript
     """
     try:
-        # Validate file type and size
+        # Read the uploaded file content asynchronously
         content = await file.read()
         file_extension = file.filename.split('.')[-1].lower()
 
-        # Route to appropriate model based on file type and model_type
+        # Route to the appropriate model based on file type and model_type
         if model_type == 'whisper':
             if file_extension in ['mp3', 'wav', 'm4a']:
                 # Call audio processing
@@ -32,10 +32,11 @@ async def upload_multimedia_file(file: UploadFile, model_type: str):
         else:
             raise HTTPException(status_code=400, detail="Invalid model type")
 
-        # Store transcript in Firestore
+        # Store transcript in Firestore asynchronously
         await store_transcript_in_firestore(transcript)
 
         return transcript
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
