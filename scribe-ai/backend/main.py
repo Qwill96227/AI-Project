@@ -6,6 +6,8 @@ from firebase_admin import credentials, initialize_app
 from firebase_admin import firestore
 from firebase_admin import auth
 from jose import jwt
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 
 # Initialize the Firebase Admin SDK
 cred = credentials.Certificate(r'C:\Users\qwill\Downloads\scribe-ai-fe9d2-firebase-adminsdk-gnevq-85fd73a6da.json')
@@ -26,10 +28,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Helper function to run synchronous Firebase operations in an async context
+async def run_async_firebase_op(func, *args, **kwargs):
+    loop = asyncio.get_event_loop()
+    with ThreadPoolExecutor() as pool:
+        return await loop.run_in_executor(pool, lambda: func(*args, **kwargs))
+
 @app.post("/upload")
 async def upload_file(file: UploadFile, model_type: str):
-    transcript = await upload_multimedia_file(file, model_type)
-    return {"status": "success", "transcript": transcript}
+    try:
+        transcript = await upload_multimedia_file(file, model_type)
+        return {"status": "success", "transcript": transcript}
+    except Exception as e:
+        print(f"Upload error: {e}")  # Log the actual error
+        return {"status": "error", "message": str(e)}
 
 @app.get("/")
 async def root():
@@ -44,28 +56,38 @@ async def signup(request: Request):
         if not id_token:
             return {"error": "Missing id_token"}
 
-        # Decode the Firebase ID token
-        decoded_token = await auth.verify_id_token(id_token)
-        user_uid = decoded_token["user_id"]  # Correctly access the user ID
+        # Verify ID token using async-friendly approach
+        decoded_token = await run_async_firebase_op(auth.verify_id_token, id_token)
+        user_uid = decoded_token["user_id"]
 
-        # Create user in Firestore
-        user_doc = db.collection("users").document(user_uid)
-        await user_doc.set({
+        # Create user in Firestore using async-friendly approach
+        user_data = {
             "username": data.get("username"),
             "email": data.get("email"),
             "uid": user_uid
-        })
+        }
+        await run_async_firebase_op(
+            db.collection("users").document(user_uid).set, 
+            user_data
+        )
 
         return {"message": "User registered successfully"}
     except Exception as e:
+        print(f"Signup error: {e}")  # Log the actual error
         return {"error": str(e)}
 
 @app.get("/users/{uid}")
 async def get_user(uid: str):
-    # Retrieve user data from Firestore
-    doc_ref = db.collection('users').document(uid)
-    doc = await doc_ref.get()
-    if doc.exists:
-        return doc.to_dict()
-    else:
-        return {"error": "User not found"}
+    try:
+        # Retrieve user data from Firestore using async-friendly approach
+        doc = await run_async_firebase_op(
+            db.collection('users').document(uid).get
+        )
+        
+        if doc.exists:
+            return doc.to_dict()
+        else:
+            return {"error": "User not found"}
+    except Exception as e:
+        print(f"Get user error: {e}")  # Log the actual error
+        return {"error": str(e)}
