@@ -63,11 +63,14 @@ const RecordPage = () => {
       if (data.status === 'success') {
         setTranscription(data.transcript);
       } else {
-        throw new Error(data.message || 'Transcription failed');
+        throw new Error(data.message || 'Unknown transcription error');
       }
     } catch (err) {
-      setError('Failed to transcribe recording');
-      console.error(err);
+      const errorMessage = err instanceof Error 
+        ? err.message 
+        : 'Failed to transcribe recording';
+      setError(errorMessage);
+      console.error('Transcription error:', err);
     } finally {
       setIsSubmitting(false);
     }
@@ -108,7 +111,7 @@ const RecordPage = () => {
         )}
         {error && (
           <div className="text-red-500 mt-4 text-center">
-            {error}
+            Error: {error}
           </div>
         )}
         {transcription && (
