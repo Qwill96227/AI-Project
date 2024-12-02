@@ -8,6 +8,7 @@ from firebase_admin import auth
 from jose import jwt
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
+from async_utils import run_async_firebase_op
 
 # Initialize the Firebase Admin SDK
 cred = credentials.Certificate(r'C:\Users\qwill\Downloads\scribe-ai-fe9d2-firebase-adminsdk-gnevq-ee66973f53.json')
@@ -27,12 +28,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Helper function to run synchronous Firebase operations in an async context
-async def run_async_firebase_op(func, *args, **kwargs):
-    loop = asyncio.get_event_loop()
-    with ThreadPoolExecutor() as pool:
-        return await loop.run_in_executor(pool, lambda: func(*args, **kwargs))
 
 @app.post("/upload")
 async def upload_file(file: UploadFile, model_type: str):

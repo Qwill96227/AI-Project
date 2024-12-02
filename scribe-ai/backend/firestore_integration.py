@@ -1,4 +1,4 @@
-# firestore_integration.py
+from async_utils import run_async_firebase_op
 from firebase_admin import firestore
 
 async def store_transcript_in_firestore(transcript):
@@ -10,7 +10,11 @@ async def store_transcript_in_firestore(transcript):
     """
     db = firestore.client()
     doc_ref = db.collection('transcripts').document()
-    await doc_ref.set({
-        'text': transcript,
-        'created_at': firestore.SERVER_TIMESTAMP
-    })
+    
+    await run_async_firebase_op(
+        doc_ref.set, 
+        {
+            'text': transcript,
+            'created_at': firestore.SERVER_TIMESTAMP
+        }
+    )
