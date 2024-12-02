@@ -10,7 +10,7 @@ import asyncio
 from concurrent.futures import ThreadPoolExecutor
 
 # Initialize the Firebase Admin SDK
-cred = credentials.Certificate(r'C:\Users\qwill\Downloads\scribe-ai-fe9d2-firebase-adminsdk-gnevq-85fd73a6da.json')
+cred = credentials.Certificate(r'C:\Users\qwill\Downloads\scribe-ai-fe9d2-firebase-adminsdk-gnevq-ee66973f53.json')
 firebase_admin.initialize_app(cred, {
     'projectId': 'scribe-ai-fe9d2',
 })
