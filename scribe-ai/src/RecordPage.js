@@ -42,7 +42,10 @@ const RecordPage = () => {
   };
 
   const handleSubmit = async () => {
-    if (!audioBlob) return;
+    if (!audioBlob) {
+      setError('No audio recording available to submit.');
+      return;
+    }
 
     setIsSubmitting(true);
     setError(null);
@@ -50,25 +53,35 @@ const RecordPage = () => {
 
     try {
       const formData = new FormData();
-      formData.append('file', audioBlob, 'recording.wav');
-      formData.append('model_type', 'whisper');
+      formData.append('file', audioBlob, 'recording.wav');  // Append the audioBlob
+      formData.append('model_type', 'whisper');  // Ensure model_type is passed correctly
 
-      const response = await fetch('/upload', {
+      // Log FormData for debugging
+      console.log('FormData entries:');
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}:`, value);
+      }
+
+      const response = await fetch('http://localhost:8000/upload', {
         method: 'POST',
         body: formData
       });
 
-      const data = await response.json();
+      const responseText = await response.text();
+      console.log('Raw Response:', responseText);
 
-      if (data.status === 'success') {
-        setTranscription(data.transcript);
+      if (response.ok) {
+        const data = JSON.parse(responseText);
+        if (data.status === 'success') {
+          setTranscription(data.transcript);
+        } else {
+          throw new Error(data.message || 'Unknown transcription error');
+        }
       } else {
-        throw new Error(data.message || 'Unknown transcription error');
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
     } catch (err) {
-      const errorMessage = err instanceof Error 
-        ? err.message 
-        : 'Failed to transcribe recording';
+      const errorMessage = err instanceof Error ? err.message : 'Failed to transcribe recording';
       setError(errorMessage);
       console.error('Transcription error:', err);
     } finally {
@@ -126,3 +139,4 @@ const RecordPage = () => {
 };
 
 export default RecordPage;
+

@@ -9,6 +9,9 @@ from jose import jwt
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from async_utils import run_async_firebase_op
+from fastapi import Request
+from fastapi import HTTPException
+
 
 # Initialize the Firebase Admin SDK
 cred = credentials.Certificate(r'C:\Users\qwill\Downloads\scribe-ai-fe9d2-firebase-adminsdk-gnevq-ee66973f53.json')
@@ -23,20 +26,23 @@ app = FastAPI()
 # CORS Middleware to allow frontend connections
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 @app.post("/upload")
-async def upload_file(file: UploadFile, model_type: str):
-    try:
-        transcript = await upload_multimedia_file(file, model_type)
-        return {"status": "success", "transcript": transcript}
-    except Exception as e:
-        print(f"Upload error: {e}")  # Log the actual error
-        return {"status": "error", "message": str(e)}
+async def upload_file(file: UploadFile = None, model_type: str = None):
+    if not file:
+        raise HTTPException(status_code=422, detail="File is required")
+    if not model_type:
+        raise HTTPException(status_code=422, detail="Model type is required")
+
+    transcript = await upload_multimedia_file(file, model_type)
+    return {"status": "success", "transcript": transcript}
+
+
 
 @app.get("/")
 async def root():
