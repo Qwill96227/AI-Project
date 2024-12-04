@@ -22,7 +22,7 @@ const RecordPage = () => {
       };
 
       mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' }); // Changed to webm for better support
         setAudioBlob(audioBlob);
         audioChunksRef.current = [];
       };
@@ -31,6 +31,7 @@ const RecordPage = () => {
       setIsRecording(true);
     } catch (error) {
       console.error('Error accessing microphone:', error);
+      setError('Error accessing microphone');
     }
   };
 
@@ -53,21 +54,26 @@ const RecordPage = () => {
 
     try {
       const formData = new FormData();
-      formData.append('uploaded_file', audioBlob, 'recording.wav');
+      formData.append('uploaded_file', audioBlob, 'recording.webm'); // Changed to webm to match blob type
+
+      console.log('Submitting FormData:', formData);  // Debug log
 
       const response = await fetch('http://localhost:8000/upload', {
         method: 'POST',
         body: formData
       });
 
+      console.log('Received response:', response);  // Debug log
+
       if (!response.ok) {
         const errorText = await response.text();
         console.error('Server error response:', errorText);
+        setError(`Server error: ${errorText}`);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
-      
+
       if (data.status === 'success') {
         setTranscription(data.transcript);
       } else {
@@ -132,4 +138,3 @@ const RecordPage = () => {
 };
 
 export default RecordPage;
-
