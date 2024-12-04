@@ -53,32 +53,25 @@ const RecordPage = () => {
 
     try {
       const formData = new FormData();
-      formData.append('file', audioBlob, 'recording.wav');  // Append the audioBlob
-      formData.append('model_type', 'whisper');  // Ensure model_type is passed correctly
-
-      // Log FormData for debugging
-      console.log('FormData entries:');
-      for (let [key, value] of formData.entries()) {
-        console.log(`${key}:`, value);
-      }
+      formData.append('uploaded_file', audioBlob, 'recording.wav');
 
       const response = await fetch('http://localhost:8000/upload', {
         method: 'POST',
         body: formData
       });
 
-      const responseText = await response.text();
-      console.log('Raw Response:', responseText);
-
-      if (response.ok) {
-        const data = JSON.parse(responseText);
-        if (data.status === 'success') {
-          setTranscription(data.transcript);
-        } else {
-          throw new Error(data.message || 'Unknown transcription error');
-        }
-      } else {
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Server error response:', errorText);
         throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.status === 'success') {
+        setTranscription(data.transcript);
+      } else {
+        throw new Error(data.message || 'Unknown transcription error');
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to transcribe recording';

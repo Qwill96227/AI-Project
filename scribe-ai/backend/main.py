@@ -33,13 +33,14 @@ app.add_middleware(
 )
 
 @app.post("/upload")
-async def upload_file(file: UploadFile = None, model_type: str = None):
-    if not file:
+async def upload_file(uploaded_file: UploadFile = None):
+    if not uploaded_file:
         raise HTTPException(status_code=422, detail="File is required")
-    if not model_type:
-        raise HTTPException(status_code=422, detail="Model type is required")
 
-    transcript = await upload_multimedia_file(file, model_type)
+    # Hardcode model_type or determine it from the file if needed
+    model_type = 'whisper'  # Default model type
+
+    transcript = await upload_multimedia_file(uploaded_file, model_type)
     return {"status": "success", "transcript": transcript}
 
 
