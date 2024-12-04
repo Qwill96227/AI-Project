@@ -1,8 +1,7 @@
-import io
+import os
 import subprocess
 import tempfile
-from fastapi import UploadFile
-from fastapi.exceptions import HTTPException
+from fastapi import UploadFile, HTTPException
 from model_processing import process_audio_with_whisper, process_video_with_whisper
 from firestore_integration import store_transcript_in_firestore
 
@@ -23,8 +22,8 @@ async def convert_audio_for_whisper(content: bytes) -> bytes:
         try:
             # Write original content to input temp file
             input_temp.write(content)
-            input_temp.flush()
-            
+            input_temp.flush()  # Ensure the file is written to disk
+
             # FFmpeg conversion command
             ffmpeg_command = [
                 'ffmpeg',
@@ -48,10 +47,13 @@ async def convert_audio_for_whisper(content: bytes) -> bytes:
                 return converted_file.read()
         
         finally:
-            # Clean up temporary files
-            import os
-            os.unlink(input_temp.name)
-            os.unlink(output_temp.name)
+            # Clean up temporary files after processing
+            try:
+                os.unlink(input_temp.name)
+                os.unlink(output_temp.name)
+            except Exception as cleanup_error:
+                print(f"Error during cleanup: {cleanup_error}")
+                pass
 
 async def upload_multimedia_file(file: UploadFile, model_type: str):
     """

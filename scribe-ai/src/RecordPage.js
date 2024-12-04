@@ -22,7 +22,7 @@ const RecordPage = () => {
       };
 
       mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' }); // Changed to webm for better support
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });  // Change to wav
         setAudioBlob(audioBlob);
         audioChunksRef.current = [];
       };
@@ -54,7 +54,7 @@ const RecordPage = () => {
 
     try {
       const formData = new FormData();
-      formData.append('uploaded_file', audioBlob, 'recording.webm'); // Changed to webm to match blob type
+      formData.append('uploaded_file', audioBlob, 'recording.wav');  // Change file name to .wav
 
       console.log('Submitting FormData:', formData);  // Debug log
 

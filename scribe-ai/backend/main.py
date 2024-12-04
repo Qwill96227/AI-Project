@@ -36,12 +36,17 @@ app.add_middleware(
 async def upload_file(uploaded_file: UploadFile = None):
     if not uploaded_file:
         raise HTTPException(status_code=422, detail="File is required")
+    
+    # Validate file type
+    if uploaded_file.content_type not in ["audio/wav", "audio/mp3"]:
+        raise HTTPException(status_code=400, detail="Invalid file type")
 
-    # Hardcode model_type or determine it from the file if needed
+    # Process file
+    print(f"Received file: {uploaded_file.filename}, Type: {uploaded_file.content_type}")
     model_type = 'whisper'  # Default model type
-
     transcript = await upload_multimedia_file(uploaded_file, model_type)
     return {"status": "success", "transcript": transcript}
+
 
 
 
