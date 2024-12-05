@@ -114,12 +114,7 @@ function LandingPage() {
           <h2 className="text-4xl font-bold mb-12">Features</h2>
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="space-y-4">
-              <div 
-                ref={videoRef}
-                className="aspect-w-16 aspect-h-9 bg-gray-800 rounded-lg overflow-hidden opacity-0 transform translate-y-10 transition-all duration-1000 ease-out"
-              >
-                <img src="/api/placeholder/640/360" alt="Video placeholder" className="w-full h-full object-cover" />
-              </div>
+              
             </div>
             <div className="space-y-6 text-left">
               <div>
